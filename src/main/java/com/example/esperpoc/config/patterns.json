@@ -1,0 +1,31 @@
+{
+    "patterns": [
+        {
+            "patternId": "STRATEGY_READY",
+            "description": "Strategy deployment readiness check",
+            "timeWindow": "48h",
+            "inputEvents": ["A", "B", "C"],
+            "correlationRules": {
+                "conditions": [
+                    {
+                        "field": "strategy",
+                        "matchAcross": ["A", "B", "C"]
+                    },
+                    {
+                        "field": "date",
+                        "matchAcross": ["A", "B"]
+                    }
+                ]
+            },
+            "outputEvent": {
+                "type": "StrategyReadyEvent",
+                "mapping": {
+                    "date": "a.date",
+                    "strategy": "a.strategy",
+                    "exchange": "b.exchange",
+                    "hash": "c.hash"
+                }
+            }
+        }
+    ]
+}
